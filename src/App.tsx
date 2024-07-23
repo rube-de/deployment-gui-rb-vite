@@ -2,6 +2,7 @@ import { useAccount, useReadContract, useReadContracts } from 'wagmi'
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import React, { useState } from 'react';
 import { Manager } from './Manager';
+import { Account } from './Account';
 
 import { factoryManagerAbi, factoryManagerAddress, useReadFactoryManagerOwner } from './generated';
 
@@ -9,31 +10,6 @@ import { factoryManagerAbi, factoryManagerAddress, useReadFactoryManagerOwner } 
 
 function App() {
   const [activeTab, setActiveTab] = useState('tab1');
-  const [owner, setOwner] = useState('');
-  const [paymentHub, setPaymentHub] = useState('');
-  const [recoveryHub, setRecoveryHub] = useState('');
-  const [offerFactory, setOfferFactory] = useState('');
-
-
-  const handleUpdateOwner = () => {
-    console.log('Updating owner:', owner);
-    // Add logic to update owner
-  };
-
-  const handleUpdatePaymentHub = () => {
-    console.log('Updating payment hub:', paymentHub);
-    // Add logic to update payment hub
-  };
-
-  const handleUpdateRecoveryHub = () => {
-    console.log('Updating recovery hub:', recoveryHub);
-    // Add logic to update recovery hub
-  };
-
-  const handleUpdateOfferFactory = () => {
-    console.log('Updating offer factory:', offerFactory);
-    // Add logic to update offer factory
-  };
 
   const renderTabContent = () => {
     switch (activeTab) {
@@ -45,16 +21,12 @@ function App() {
         return <div>Content for Tab 3</div>;
       case 'manager':
         return <Manager />;
+      case 'account':
+        return <Account />;
       default:
         return null;
     }
   };
-
-  const handleUpdate = () => {
-    // Handle the update logic here
-    console.log('Update button clicked');
-  };
-
 
   return (
     <div>
@@ -79,6 +51,7 @@ function App() {
           <button onClick={() => setActiveTab('tab2')}>Deploy Token</button>
           <button onClick={() => setActiveTab('tab3')}>Deploy Brokerbot</button>
           <button onClick={() => setActiveTab('manager')}>Factory Manager</button>
+          <button onClick={() => setActiveTab('account')}>Account</button>
         </div>
       <div style={{ padding: 12 }}>
         {renderTabContent()}

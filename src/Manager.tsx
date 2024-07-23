@@ -1,4 +1,4 @@
-import { useAccount, useReadContract } from 'wagmi';
+import { useAccount, useReadContract, useReadContracts, useWriteContract } from 'wagmi';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import React, { useState, useEffect } from 'react';
 import { 
@@ -7,10 +7,11 @@ import {
   useReadFactoryManagerOwner,
   useReadFactoryManagerPaymentHub,
 } from './generated';
+import { Address } from 'viem';
 
 
 const wagmiContractConfig = {
-  address: factoryManagerAddress,
+  address: factoryManagerAddress[1],
   abi: factoryManagerAbi,
 };
 
@@ -20,23 +21,81 @@ export function Manager() {
   const [paymentHub, setPaymentHub] = useState('');
   const [recoveryHub, setRecoveryHub] = useState('');
   const [offerFactory, setOfferFactory] = useState('');
+  const [permit2Hub, setPermit2Hub] = useState('');
+  const [multisigFactory, setMultisigFactory] = useState('');
 
+  const { 
+    data,
+    error,
+    isPending
+  } = useReadContracts({ 
+    contracts: [
+      { 
+        ...wagmiContractConfig,
+        functionName: 'owner',
+        args: [],
+      }, { 
+        ...wagmiContractConfig, 
+        functionName: 'paymentHub', 
+        args: [], 
+      }, { 
+        ...wagmiContractConfig, 
+        functionName: 'recoveryHub', 
+      }, { 
+        ...wagmiContractConfig, 
+        functionName: 'offerFactory', 
+      }, { 
+        ...wagmiContractConfig, 
+        functionName: 'permit2Hub', 
+      },
+      {
+        ...wagmiContractConfig,
+        functionName: 'multisigFactory',
+      },
+   ] 
+  }) 
+  const [ownerData, paymentHubData, recoveryHubData, offerFactoryData, permit2HubData, multisigFactoryData] = data || [];
 
-  const { data: ownerData, isLoading: ownerLoading } = useReadFactoryManagerOwner();
-  const { data: paymentHubData, isLoading: paymentHubLoading } = useReadFactoryManagerPaymentHub();
+  const { data: hash, writeContract } = useWriteContract()
+
 
   useEffect(() => {
-    if (!ownerLoading && ownerData) {
-      setOwner(ownerData);
+    if (!error && !isPending) {
+      if (ownerData) {
+        setOwner(ownerData?.result!);
+      }
+      if (paymentHubData) {
+        setPaymentHub(paymentHubData?.result!);
+      }
+      if (recoveryHubData) {
+        setRecoveryHub(recoveryHubData?.result!);
+      }
+      if (offerFactoryData) {
+        setOfferFactory(offerFactoryData?.result!);
+      }
+      if (permit2HubData) {
+        setPermit2Hub(permit2HubData?.result!);
+      }
+      if (multisigFactoryData) {
+        setMultisigFactory(multisigFactoryData?.result!);
+      }
     }
-    if (!paymentHubLoading && paymentHubData) {
-      setPaymentHub(paymentHubData);
-    }
-  }, [ownerLoading, ownerData, paymentHubLoading, paymentHubData]);
+  }, [error, isPending, ownerData, paymentHubData, recoveryHubData, offerFactoryData]);
 
-  const handleUpdateOwner = () => {
+
+  const handleUpdateOwner = async() => {
     console.log('Updating owner:', owner);
     // Add logic to update owner
+    try {
+      console.log("try");
+      writeContract({
+        ...wagmiContractConfig, 
+        functionName: 'transferOwnership', 
+        args: [owner as Address] 
+      });
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleUpdatePaymentHub = () => {
@@ -52,6 +111,16 @@ export function Manager() {
   const handleUpdateOfferFactory = () => {
     console.log('Updating offer factory:', offerFactory);
     // Add logic to update offer factory
+  };
+
+  const handleUpdatePermit2Hub = () => {
+    console.log('Updating permit2 hub:', permit2Hub);
+    // Add logic to update offer factory
+  };
+
+  const handleUpdateMultisigFactory = () => {
+    console.log('Updating multisigFactory:', multisigFactory);
+    // Add logic to update multisigFactory
   };
 
   return (
@@ -71,6 +140,16 @@ export function Manager() {
       <label htmlFor="offerfactory">Offerfactory:</label>
       <input type="text" id="offerfactory" value={offerFactory} onChange={(e) => setOfferFactory(e.target.value)} />
       <button onClick={handleUpdateOfferFactory}>Update</button>
+      <br />
+      <label htmlFor="permit2Hub">Permit2Hub:</label>
+      <input type="text" id="permit2Hub" value={permit2Hub} onChange={(e) => setPermit2Hub(e.target.value)} />
+      <button onClick={handleUpdatePermit2Hub}>Update</button>
+      <br />
+      <label htmlFor="multisigFactory">MultisigFactory:</label>
+      <input type="text" id="multisigFactory" value={multisigFactory} onChange={(e) => setMultisigFactory(e.target.value)} />
+      <button onClick={handleUpdateMultisigFactory}>Update</button>
+      <br />
+      {hash && <div>Hash: {hash}</div>}
     </div>
   );
 }
