@@ -1,6 +1,6 @@
 import { defineConfig } from '@wagmi/cli'
 import { etherscan, react } from '@wagmi/cli/plugins'
-import { mainnet, polygon } from 'wagmi/chains'
+import { mainnet, sepolia, polygon } from 'wagmi/chains'
 import dotenv from 'dotenv'
 dotenv.config()
 
