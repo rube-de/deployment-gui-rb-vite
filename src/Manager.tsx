@@ -13,6 +13,7 @@ import {
   useReadFactoryManagerPaymentHub,
 } from './generated';
 import { Address } from 'viem';
+import { blockExplorerLink } from './lib/utils'
 
 
 const wagmiContractConfig = {
@@ -67,7 +68,7 @@ export function Manager() {
     console.log(writeContractError?.message)
   }, [writeContractError])
 
-  const { address } = useAccount();
+  const { address, chainId } = useAccount();
 
   useEffect(() => {
     console.log('Address:', address);
@@ -247,12 +248,11 @@ export function Manager() {
       </div>
       {hash && (
         <div style={{ marginTop: '10px' }}>
-          <div>Hash: {hash}</div>
           <div>
             <h2 style={{ marginTop: 24, marginBottom: 6 }}>Manager updated</h2>
             <p style={{ marginBottom: 6 }}>
               View on{' '}
-              <a href={`https://etherscan.io/tx/${hash}`}>
+              <a href={blockExplorerLink(chainId, hash)} target="_blank">
                 Etherscan
               </a>
             </p>
