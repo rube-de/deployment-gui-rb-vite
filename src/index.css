@@ -19,3 +19,33 @@
     color: #181818;
   }
 }
+
+.tabs {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 12;
+  margin: 10;
+}
+
+.brokerbot-container {
+  /* Add your desired styles here */
+}
+
+.form-group {
+  margin-bottom: 10px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form-group input {
+  width: 50%;
+  padding: 5px;
+}
+
+.form-group button {
+  margin-top: 10px;
+}
