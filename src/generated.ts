@@ -6,11 +6,186 @@ import {
 } from 'wagmi/codegen'
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// BrokerbotFactory
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0xfAe70dEBb64a7176aaA41D1d7fEAfc4CCA4a5107)
+ * - [__View Contract on Polygon Polygon Scan__](https://polygonscan.com/address/0xfAe70dEBb64a7176aaA41D1d7fEAfc4CCA4a5107)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xfAe70dEBb64a7176aaA41D1d7fEAfc4CCA4a5107)
+ */
+export const brokerbotFactoryAbi = [
+  {
+    type: 'constructor',
+    inputs: [{ name: '_owner', internalType: 'address', type: 'address' }],
+    stateMutability: 'nonpayable',
+  },
+  { type: 'error', inputs: [], name: 'InvalidOwner' },
+  {
+    type: 'error',
+    inputs: [{ name: 'sender', internalType: 'address', type: 'address' }],
+    name: 'Ownable_NotOwner',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'brokerbot',
+        internalType: 'contract Brokerbot',
+        type: 'address',
+        indexed: true,
+      },
+      {
+        name: 'token',
+        internalType: 'contract IERC20Permit',
+        type: 'address',
+        indexed: true,
+      },
+      {
+        name: 'owner',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+    ],
+    name: 'BrokerbotCreated',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'manager',
+        internalType: 'contract FactoryManager',
+        type: 'address',
+        indexed: false,
+      },
+    ],
+    name: 'FactoryManagerUpdated',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'previousOwner',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+      {
+        name: 'newOwner',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+    ],
+    name: 'OwnershipTransferred',
+  },
+  {
+    type: 'function',
+    inputs: [
+      {
+        name: 'brokerbotConfig',
+        internalType: 'struct BrokerbotConfig',
+        type: 'tuple',
+        components: [
+          { name: 'price', internalType: 'uint256', type: 'uint256' },
+          { name: 'increment', internalType: 'uint256', type: 'uint256' },
+          {
+            name: 'baseCurrency',
+            internalType: 'contract IERC20',
+            type: 'address',
+          },
+        ],
+      },
+      { name: 'token', internalType: 'contract IERC20Permit', type: 'address' },
+      { name: 'multisig', internalType: 'address', type: 'address' },
+      { name: '_salt', internalType: 'string', type: 'string' },
+    ],
+    name: 'createBrokerbot',
+    outputs: [
+      { name: '', internalType: 'contract Brokerbot', type: 'address' },
+    ],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'getAllBrokerbots',
+    outputs: [
+      { name: 'brokerbots', internalType: 'address[]', type: 'address[]' },
+    ],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'manager',
+    outputs: [
+      { name: '', internalType: 'contract FactoryManager', type: 'address' },
+    ],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'owner',
+    outputs: [{ name: '', internalType: 'address', type: 'address' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [
+      {
+        name: '_manager',
+        internalType: 'contract FactoryManager',
+        type: 'address',
+      },
+    ],
+    name: 'setManager',
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [{ name: 'newOwner', internalType: 'address', type: 'address' }],
+    name: 'transferOwnership',
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+] as const
+
+/**
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0xfAe70dEBb64a7176aaA41D1d7fEAfc4CCA4a5107)
+ * - [__View Contract on Polygon Polygon Scan__](https://polygonscan.com/address/0xfAe70dEBb64a7176aaA41D1d7fEAfc4CCA4a5107)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xfAe70dEBb64a7176aaA41D1d7fEAfc4CCA4a5107)
+ */
+export const brokerbotFactoryAddress = {
+  1: '0xfAe70dEBb64a7176aaA41D1d7fEAfc4CCA4a5107',
+  137: '0xfAe70dEBb64a7176aaA41D1d7fEAfc4CCA4a5107',
+  11155111: '0xfAe70dEBb64a7176aaA41D1d7fEAfc4CCA4a5107',
+} as const
+
+/**
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0xfAe70dEBb64a7176aaA41D1d7fEAfc4CCA4a5107)
+ * - [__View Contract on Polygon Polygon Scan__](https://polygonscan.com/address/0xfAe70dEBb64a7176aaA41D1d7fEAfc4CCA4a5107)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xfAe70dEBb64a7176aaA41D1d7fEAfc4CCA4a5107)
+ */
+export const brokerbotFactoryConfig = {
+  address: brokerbotFactoryAddress,
+  abi: brokerbotFactoryAbi,
+} as const
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // FactoryManager
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /**
- * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Polygon Polygon Scan__](https://polygonscan.com/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
  */
 export const factoryManagerAbi = [
   {
@@ -238,14 +413,20 @@ export const factoryManagerAbi = [
 ] as const
 
 /**
- * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Polygon Polygon Scan__](https://polygonscan.com/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
  */
 export const factoryManagerAddress = {
   1: '0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78',
+  137: '0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78',
+  11155111: '0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78',
 } as const
 
 /**
- * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Polygon Polygon Scan__](https://polygonscan.com/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
  */
 export const factoryManagerConfig = {
   address: factoryManagerAddress,
@@ -257,9 +438,230 @@ export const factoryManagerConfig = {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link brokerbotFactoryAbi}__
+ *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0xfAe70dEBb64a7176aaA41D1d7fEAfc4CCA4a5107)
+ * - [__View Contract on Polygon Polygon Scan__](https://polygonscan.com/address/0xfAe70dEBb64a7176aaA41D1d7fEAfc4CCA4a5107)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xfAe70dEBb64a7176aaA41D1d7fEAfc4CCA4a5107)
+ */
+export const useReadBrokerbotFactory = /*#__PURE__*/ createUseReadContract({
+  abi: brokerbotFactoryAbi,
+  address: brokerbotFactoryAddress,
+})
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link brokerbotFactoryAbi}__ and `functionName` set to `"getAllBrokerbots"`
+ *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0xfAe70dEBb64a7176aaA41D1d7fEAfc4CCA4a5107)
+ * - [__View Contract on Polygon Polygon Scan__](https://polygonscan.com/address/0xfAe70dEBb64a7176aaA41D1d7fEAfc4CCA4a5107)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xfAe70dEBb64a7176aaA41D1d7fEAfc4CCA4a5107)
+ */
+export const useReadBrokerbotFactoryGetAllBrokerbots =
+  /*#__PURE__*/ createUseReadContract({
+    abi: brokerbotFactoryAbi,
+    address: brokerbotFactoryAddress,
+    functionName: 'getAllBrokerbots',
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link brokerbotFactoryAbi}__ and `functionName` set to `"manager"`
+ *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0xfAe70dEBb64a7176aaA41D1d7fEAfc4CCA4a5107)
+ * - [__View Contract on Polygon Polygon Scan__](https://polygonscan.com/address/0xfAe70dEBb64a7176aaA41D1d7fEAfc4CCA4a5107)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xfAe70dEBb64a7176aaA41D1d7fEAfc4CCA4a5107)
+ */
+export const useReadBrokerbotFactoryManager =
+  /*#__PURE__*/ createUseReadContract({
+    abi: brokerbotFactoryAbi,
+    address: brokerbotFactoryAddress,
+    functionName: 'manager',
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link brokerbotFactoryAbi}__ and `functionName` set to `"owner"`
+ *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0xfAe70dEBb64a7176aaA41D1d7fEAfc4CCA4a5107)
+ * - [__View Contract on Polygon Polygon Scan__](https://polygonscan.com/address/0xfAe70dEBb64a7176aaA41D1d7fEAfc4CCA4a5107)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xfAe70dEBb64a7176aaA41D1d7fEAfc4CCA4a5107)
+ */
+export const useReadBrokerbotFactoryOwner = /*#__PURE__*/ createUseReadContract(
+  {
+    abi: brokerbotFactoryAbi,
+    address: brokerbotFactoryAddress,
+    functionName: 'owner',
+  },
+)
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link brokerbotFactoryAbi}__
+ *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0xfAe70dEBb64a7176aaA41D1d7fEAfc4CCA4a5107)
+ * - [__View Contract on Polygon Polygon Scan__](https://polygonscan.com/address/0xfAe70dEBb64a7176aaA41D1d7fEAfc4CCA4a5107)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xfAe70dEBb64a7176aaA41D1d7fEAfc4CCA4a5107)
+ */
+export const useWriteBrokerbotFactory = /*#__PURE__*/ createUseWriteContract({
+  abi: brokerbotFactoryAbi,
+  address: brokerbotFactoryAddress,
+})
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link brokerbotFactoryAbi}__ and `functionName` set to `"createBrokerbot"`
+ *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0xfAe70dEBb64a7176aaA41D1d7fEAfc4CCA4a5107)
+ * - [__View Contract on Polygon Polygon Scan__](https://polygonscan.com/address/0xfAe70dEBb64a7176aaA41D1d7fEAfc4CCA4a5107)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xfAe70dEBb64a7176aaA41D1d7fEAfc4CCA4a5107)
+ */
+export const useWriteBrokerbotFactoryCreateBrokerbot =
+  /*#__PURE__*/ createUseWriteContract({
+    abi: brokerbotFactoryAbi,
+    address: brokerbotFactoryAddress,
+    functionName: 'createBrokerbot',
+  })
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link brokerbotFactoryAbi}__ and `functionName` set to `"setManager"`
+ *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0xfAe70dEBb64a7176aaA41D1d7fEAfc4CCA4a5107)
+ * - [__View Contract on Polygon Polygon Scan__](https://polygonscan.com/address/0xfAe70dEBb64a7176aaA41D1d7fEAfc4CCA4a5107)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xfAe70dEBb64a7176aaA41D1d7fEAfc4CCA4a5107)
+ */
+export const useWriteBrokerbotFactorySetManager =
+  /*#__PURE__*/ createUseWriteContract({
+    abi: brokerbotFactoryAbi,
+    address: brokerbotFactoryAddress,
+    functionName: 'setManager',
+  })
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link brokerbotFactoryAbi}__ and `functionName` set to `"transferOwnership"`
+ *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0xfAe70dEBb64a7176aaA41D1d7fEAfc4CCA4a5107)
+ * - [__View Contract on Polygon Polygon Scan__](https://polygonscan.com/address/0xfAe70dEBb64a7176aaA41D1d7fEAfc4CCA4a5107)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xfAe70dEBb64a7176aaA41D1d7fEAfc4CCA4a5107)
+ */
+export const useWriteBrokerbotFactoryTransferOwnership =
+  /*#__PURE__*/ createUseWriteContract({
+    abi: brokerbotFactoryAbi,
+    address: brokerbotFactoryAddress,
+    functionName: 'transferOwnership',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link brokerbotFactoryAbi}__
+ *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0xfAe70dEBb64a7176aaA41D1d7fEAfc4CCA4a5107)
+ * - [__View Contract on Polygon Polygon Scan__](https://polygonscan.com/address/0xfAe70dEBb64a7176aaA41D1d7fEAfc4CCA4a5107)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xfAe70dEBb64a7176aaA41D1d7fEAfc4CCA4a5107)
+ */
+export const useSimulateBrokerbotFactory =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: brokerbotFactoryAbi,
+    address: brokerbotFactoryAddress,
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link brokerbotFactoryAbi}__ and `functionName` set to `"createBrokerbot"`
+ *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0xfAe70dEBb64a7176aaA41D1d7fEAfc4CCA4a5107)
+ * - [__View Contract on Polygon Polygon Scan__](https://polygonscan.com/address/0xfAe70dEBb64a7176aaA41D1d7fEAfc4CCA4a5107)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xfAe70dEBb64a7176aaA41D1d7fEAfc4CCA4a5107)
+ */
+export const useSimulateBrokerbotFactoryCreateBrokerbot =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: brokerbotFactoryAbi,
+    address: brokerbotFactoryAddress,
+    functionName: 'createBrokerbot',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link brokerbotFactoryAbi}__ and `functionName` set to `"setManager"`
+ *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0xfAe70dEBb64a7176aaA41D1d7fEAfc4CCA4a5107)
+ * - [__View Contract on Polygon Polygon Scan__](https://polygonscan.com/address/0xfAe70dEBb64a7176aaA41D1d7fEAfc4CCA4a5107)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xfAe70dEBb64a7176aaA41D1d7fEAfc4CCA4a5107)
+ */
+export const useSimulateBrokerbotFactorySetManager =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: brokerbotFactoryAbi,
+    address: brokerbotFactoryAddress,
+    functionName: 'setManager',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link brokerbotFactoryAbi}__ and `functionName` set to `"transferOwnership"`
+ *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0xfAe70dEBb64a7176aaA41D1d7fEAfc4CCA4a5107)
+ * - [__View Contract on Polygon Polygon Scan__](https://polygonscan.com/address/0xfAe70dEBb64a7176aaA41D1d7fEAfc4CCA4a5107)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xfAe70dEBb64a7176aaA41D1d7fEAfc4CCA4a5107)
+ */
+export const useSimulateBrokerbotFactoryTransferOwnership =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: brokerbotFactoryAbi,
+    address: brokerbotFactoryAddress,
+    functionName: 'transferOwnership',
+  })
+
+/**
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link brokerbotFactoryAbi}__
+ *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0xfAe70dEBb64a7176aaA41D1d7fEAfc4CCA4a5107)
+ * - [__View Contract on Polygon Polygon Scan__](https://polygonscan.com/address/0xfAe70dEBb64a7176aaA41D1d7fEAfc4CCA4a5107)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xfAe70dEBb64a7176aaA41D1d7fEAfc4CCA4a5107)
+ */
+export const useWatchBrokerbotFactoryEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: brokerbotFactoryAbi,
+    address: brokerbotFactoryAddress,
+  })
+
+/**
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link brokerbotFactoryAbi}__ and `eventName` set to `"BrokerbotCreated"`
+ *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0xfAe70dEBb64a7176aaA41D1d7fEAfc4CCA4a5107)
+ * - [__View Contract on Polygon Polygon Scan__](https://polygonscan.com/address/0xfAe70dEBb64a7176aaA41D1d7fEAfc4CCA4a5107)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xfAe70dEBb64a7176aaA41D1d7fEAfc4CCA4a5107)
+ */
+export const useWatchBrokerbotFactoryBrokerbotCreatedEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: brokerbotFactoryAbi,
+    address: brokerbotFactoryAddress,
+    eventName: 'BrokerbotCreated',
+  })
+
+/**
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link brokerbotFactoryAbi}__ and `eventName` set to `"FactoryManagerUpdated"`
+ *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0xfAe70dEBb64a7176aaA41D1d7fEAfc4CCA4a5107)
+ * - [__View Contract on Polygon Polygon Scan__](https://polygonscan.com/address/0xfAe70dEBb64a7176aaA41D1d7fEAfc4CCA4a5107)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xfAe70dEBb64a7176aaA41D1d7fEAfc4CCA4a5107)
+ */
+export const useWatchBrokerbotFactoryFactoryManagerUpdatedEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: brokerbotFactoryAbi,
+    address: brokerbotFactoryAddress,
+    eventName: 'FactoryManagerUpdated',
+  })
+
+/**
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link brokerbotFactoryAbi}__ and `eventName` set to `"OwnershipTransferred"`
+ *
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0xfAe70dEBb64a7176aaA41D1d7fEAfc4CCA4a5107)
+ * - [__View Contract on Polygon Polygon Scan__](https://polygonscan.com/address/0xfAe70dEBb64a7176aaA41D1d7fEAfc4CCA4a5107)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xfAe70dEBb64a7176aaA41D1d7fEAfc4CCA4a5107)
+ */
+export const useWatchBrokerbotFactoryOwnershipTransferredEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: brokerbotFactoryAbi,
+    address: brokerbotFactoryAddress,
+    eventName: 'OwnershipTransferred',
+  })
+
+/**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link factoryManagerAbi}__
  *
- * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Polygon Polygon Scan__](https://polygonscan.com/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
  */
 export const useReadFactoryManager = /*#__PURE__*/ createUseReadContract({
   abi: factoryManagerAbi,
@@ -269,7 +671,9 @@ export const useReadFactoryManager = /*#__PURE__*/ createUseReadContract({
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link factoryManagerAbi}__ and `functionName` set to `"multisigFactory"`
  *
- * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Polygon Polygon Scan__](https://polygonscan.com/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
  */
 export const useReadFactoryManagerMultisigFactory =
   /*#__PURE__*/ createUseReadContract({
@@ -281,7 +685,9 @@ export const useReadFactoryManagerMultisigFactory =
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link factoryManagerAbi}__ and `functionName` set to `"offerFactory"`
  *
- * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Polygon Polygon Scan__](https://polygonscan.com/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
  */
 export const useReadFactoryManagerOfferFactory =
   /*#__PURE__*/ createUseReadContract({
@@ -293,7 +699,9 @@ export const useReadFactoryManagerOfferFactory =
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link factoryManagerAbi}__ and `functionName` set to `"owner"`
  *
- * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Polygon Polygon Scan__](https://polygonscan.com/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
  */
 export const useReadFactoryManagerOwner = /*#__PURE__*/ createUseReadContract({
   abi: factoryManagerAbi,
@@ -304,7 +712,9 @@ export const useReadFactoryManagerOwner = /*#__PURE__*/ createUseReadContract({
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link factoryManagerAbi}__ and `functionName` set to `"paymentHub"`
  *
- * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Polygon Polygon Scan__](https://polygonscan.com/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
  */
 export const useReadFactoryManagerPaymentHub =
   /*#__PURE__*/ createUseReadContract({
@@ -316,7 +726,9 @@ export const useReadFactoryManagerPaymentHub =
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link factoryManagerAbi}__ and `functionName` set to `"permit2Hub"`
  *
- * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Polygon Polygon Scan__](https://polygonscan.com/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
  */
 export const useReadFactoryManagerPermit2Hub =
   /*#__PURE__*/ createUseReadContract({
@@ -328,7 +740,9 @@ export const useReadFactoryManagerPermit2Hub =
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link factoryManagerAbi}__ and `functionName` set to `"recoveryHub"`
  *
- * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Polygon Polygon Scan__](https://polygonscan.com/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
  */
 export const useReadFactoryManagerRecoveryHub =
   /*#__PURE__*/ createUseReadContract({
@@ -340,7 +754,9 @@ export const useReadFactoryManagerRecoveryHub =
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link factoryManagerAbi}__
  *
- * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Polygon Polygon Scan__](https://polygonscan.com/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
  */
 export const useWriteFactoryManager = /*#__PURE__*/ createUseWriteContract({
   abi: factoryManagerAbi,
@@ -350,7 +766,9 @@ export const useWriteFactoryManager = /*#__PURE__*/ createUseWriteContract({
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link factoryManagerAbi}__ and `functionName` set to `"setMultiSigCloneFactory"`
  *
- * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Polygon Polygon Scan__](https://polygonscan.com/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
  */
 export const useWriteFactoryManagerSetMultiSigCloneFactory =
   /*#__PURE__*/ createUseWriteContract({
@@ -362,7 +780,9 @@ export const useWriteFactoryManagerSetMultiSigCloneFactory =
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link factoryManagerAbi}__ and `functionName` set to `"setOfferFactory"`
  *
- * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Polygon Polygon Scan__](https://polygonscan.com/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
  */
 export const useWriteFactoryManagerSetOfferFactory =
   /*#__PURE__*/ createUseWriteContract({
@@ -374,7 +794,9 @@ export const useWriteFactoryManagerSetOfferFactory =
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link factoryManagerAbi}__ and `functionName` set to `"setPaymentHub"`
  *
- * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Polygon Polygon Scan__](https://polygonscan.com/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
  */
 export const useWriteFactoryManagerSetPaymentHub =
   /*#__PURE__*/ createUseWriteContract({
@@ -386,7 +808,9 @@ export const useWriteFactoryManagerSetPaymentHub =
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link factoryManagerAbi}__ and `functionName` set to `"setPermit2Hub"`
  *
- * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Polygon Polygon Scan__](https://polygonscan.com/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
  */
 export const useWriteFactoryManagerSetPermit2Hub =
   /*#__PURE__*/ createUseWriteContract({
@@ -398,7 +822,9 @@ export const useWriteFactoryManagerSetPermit2Hub =
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link factoryManagerAbi}__ and `functionName` set to `"setRecoveryHub"`
  *
- * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Polygon Polygon Scan__](https://polygonscan.com/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
  */
 export const useWriteFactoryManagerSetRecoveryHub =
   /*#__PURE__*/ createUseWriteContract({
@@ -410,7 +836,9 @@ export const useWriteFactoryManagerSetRecoveryHub =
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link factoryManagerAbi}__ and `functionName` set to `"transferOwnership"`
  *
- * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Polygon Polygon Scan__](https://polygonscan.com/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
  */
 export const useWriteFactoryManagerTransferOwnership =
   /*#__PURE__*/ createUseWriteContract({
@@ -422,7 +850,9 @@ export const useWriteFactoryManagerTransferOwnership =
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link factoryManagerAbi}__
  *
- * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Polygon Polygon Scan__](https://polygonscan.com/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
  */
 export const useSimulateFactoryManager =
   /*#__PURE__*/ createUseSimulateContract({
@@ -433,7 +863,9 @@ export const useSimulateFactoryManager =
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link factoryManagerAbi}__ and `functionName` set to `"setMultiSigCloneFactory"`
  *
- * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Polygon Polygon Scan__](https://polygonscan.com/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
  */
 export const useSimulateFactoryManagerSetMultiSigCloneFactory =
   /*#__PURE__*/ createUseSimulateContract({
@@ -445,7 +877,9 @@ export const useSimulateFactoryManagerSetMultiSigCloneFactory =
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link factoryManagerAbi}__ and `functionName` set to `"setOfferFactory"`
  *
- * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Polygon Polygon Scan__](https://polygonscan.com/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
  */
 export const useSimulateFactoryManagerSetOfferFactory =
   /*#__PURE__*/ createUseSimulateContract({
@@ -457,7 +891,9 @@ export const useSimulateFactoryManagerSetOfferFactory =
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link factoryManagerAbi}__ and `functionName` set to `"setPaymentHub"`
  *
- * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Polygon Polygon Scan__](https://polygonscan.com/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
  */
 export const useSimulateFactoryManagerSetPaymentHub =
   /*#__PURE__*/ createUseSimulateContract({
@@ -469,7 +905,9 @@ export const useSimulateFactoryManagerSetPaymentHub =
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link factoryManagerAbi}__ and `functionName` set to `"setPermit2Hub"`
  *
- * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Polygon Polygon Scan__](https://polygonscan.com/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
  */
 export const useSimulateFactoryManagerSetPermit2Hub =
   /*#__PURE__*/ createUseSimulateContract({
@@ -481,7 +919,9 @@ export const useSimulateFactoryManagerSetPermit2Hub =
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link factoryManagerAbi}__ and `functionName` set to `"setRecoveryHub"`
  *
- * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Polygon Polygon Scan__](https://polygonscan.com/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
  */
 export const useSimulateFactoryManagerSetRecoveryHub =
   /*#__PURE__*/ createUseSimulateContract({
@@ -493,7 +933,9 @@ export const useSimulateFactoryManagerSetRecoveryHub =
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link factoryManagerAbi}__ and `functionName` set to `"transferOwnership"`
  *
- * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Polygon Polygon Scan__](https://polygonscan.com/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
  */
 export const useSimulateFactoryManagerTransferOwnership =
   /*#__PURE__*/ createUseSimulateContract({
@@ -505,7 +947,9 @@ export const useSimulateFactoryManagerTransferOwnership =
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link factoryManagerAbi}__
  *
- * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Polygon Polygon Scan__](https://polygonscan.com/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
  */
 export const useWatchFactoryManagerEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
@@ -516,7 +960,9 @@ export const useWatchFactoryManagerEvent =
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link factoryManagerAbi}__ and `eventName` set to `"MultiSigCloneFactoryUpdated"`
  *
- * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Polygon Polygon Scan__](https://polygonscan.com/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
  */
 export const useWatchFactoryManagerMultiSigCloneFactoryUpdatedEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
@@ -528,7 +974,9 @@ export const useWatchFactoryManagerMultiSigCloneFactoryUpdatedEvent =
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link factoryManagerAbi}__ and `eventName` set to `"OfferFactoryUpdated"`
  *
- * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Polygon Polygon Scan__](https://polygonscan.com/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
  */
 export const useWatchFactoryManagerOfferFactoryUpdatedEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
@@ -540,7 +988,9 @@ export const useWatchFactoryManagerOfferFactoryUpdatedEvent =
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link factoryManagerAbi}__ and `eventName` set to `"OwnershipTransferred"`
  *
- * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Polygon Polygon Scan__](https://polygonscan.com/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
  */
 export const useWatchFactoryManagerOwnershipTransferredEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
@@ -552,7 +1002,9 @@ export const useWatchFactoryManagerOwnershipTransferredEvent =
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link factoryManagerAbi}__ and `eventName` set to `"PaymentHubUpdated"`
  *
- * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Polygon Polygon Scan__](https://polygonscan.com/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
  */
 export const useWatchFactoryManagerPaymentHubUpdatedEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
@@ -564,7 +1016,9 @@ export const useWatchFactoryManagerPaymentHubUpdatedEvent =
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link factoryManagerAbi}__ and `eventName` set to `"Permit2HubUpdated"`
  *
- * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Polygon Polygon Scan__](https://polygonscan.com/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
  */
 export const useWatchFactoryManagerPermit2HubUpdatedEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
@@ -576,7 +1030,9 @@ export const useWatchFactoryManagerPermit2HubUpdatedEvent =
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link factoryManagerAbi}__ and `eventName` set to `"RecoveryHubUpdated"`
  *
- * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Polygon Polygon Scan__](https://polygonscan.com/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
+ * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x555E7852d4ab6F8C557F9Bc6d17ADdb8c7911d78)
  */
 export const useWatchFactoryManagerRecoveryHubUpdatedEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
