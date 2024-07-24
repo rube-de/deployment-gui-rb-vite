@@ -199,6 +199,7 @@ export function Manager() {
 
   return (
     <div>
+      <h2>Manager Settings </h2>
       <div style={{ marginBottom: '10px' }}>
         <label htmlFor="owner">Owner:</label>
         <br />
