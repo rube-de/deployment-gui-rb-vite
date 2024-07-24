@@ -30,6 +30,7 @@ export function Manager() {
   const [permit2Hub, setPermit2Hub] = useState('');
   const [multisigFactory, setMultisigFactory] = useState('');
 
+  // read contract state
   const { 
     data,
     error,
@@ -110,7 +111,7 @@ export function Manager() {
     
     try {
       console.log('Attempting to write contract');
-      const result = await writeContract({
+      const result = writeContract({
         ...wagmiContractConfig, 
         functionName: 'transferOwnership', 
         args: [owner as Address]
