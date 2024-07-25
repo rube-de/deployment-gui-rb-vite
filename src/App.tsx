@@ -4,20 +4,19 @@ import React, { useState } from 'react';
 import { Manager } from './Manager';
 import { Account } from './Account';
 import { Brokerbot } from './Brokerbot';
-
-import { factoryManagerAbi, factoryManagerAddress, useReadFactoryManagerOwner } from './generated';
-
+import { Token } from './Token';
+import { Company } from './Company';
 
 
 function App() {
-  const [activeTab, setActiveTab] = useState('tab1');
+  const [activeTab, setActiveTab] = useState('company');
 
   const renderTabContent = () => {
     switch (activeTab) {
-      case 'tab1':
-        return <div>Content for Tab 1</div>;
-      case 'tab2':
-        return <div>Content for Tab 2</div>;
+      case 'company':
+        return <Company />
+      case 'token':
+        return <Token />;
       case 'brokerbot':
         return <Brokerbot />
       case 'manager':
@@ -41,8 +40,8 @@ function App() {
         <ConnectButton />
       </div>
       <div className="tabs">
-          <button onClick={() => setActiveTab('tab1')}>Deploy Company</button>
-          <button onClick={() => setActiveTab('tab2')}>Deploy Token</button>
+          <button onClick={() => setActiveTab('company')}>Deploy Company</button>
+          <button onClick={() => setActiveTab('token')}>Deploy Token</button>
           <button onClick={() => setActiveTab('brokerbot')}>Deploy Brokerbot</button>
           <button onClick={() => setActiveTab('manager')}>Factory Manager</button>
           <button onClick={() => setActiveTab('account')}>Account</button>

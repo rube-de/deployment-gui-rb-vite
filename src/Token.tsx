@@ -4,36 +4,41 @@ import {
   useWaitForTransactionReceipt,
   useAccount
  } from 'wagmi';
-import { ConnectButton } from '@rainbow-me/rainbowkit';
 import React, { useState, useEffect } from 'react';
 import { 
-  brokerbotFactoryAbi, 
-  brokerbotFactoryAddress, 
+  tokenFactoryAbi, 
+  tokenFactoryAddress, 
 } from './generated';
 import { blockExplorerLink, getZCHFAddress } from './lib/utils'
-import { parseUnits, Address } from 'viem'
+import { Address } from 'viem'
 
 
 const wagmiContractConfig = {
-  address: brokerbotFactoryAddress[1],
-  abi: brokerbotFactoryAbi,
+  address: tokenFactoryAddress[1],
+  abi: tokenFactoryAbi,
 };
 
-export function Brokerbot() {
+export function Token() {
   const { address, chainId } = useAccount();
   const { data: hash, writeContract, error: writeContractError} = useWriteContract();
   // const { data: receipt, error: receiptError } = useWaitForTransactionReceipt({ hash });
 
 
+  const [activeTab, setActiveTab] = useState('token');
   const [owner, setOwner] = useState('');
-  const [price, setPrice] = useState('0');
-  const [increment, setIncrement] = useState('0');
-  const [baseCurrency, setBaseCurrency] = useState(getZCHFAddress(chainId));
-  const [token, setToken] = useState('');
   const [multisig, setMultisig] = useState('');
   const [salt, setSalt] = useState('');
   const [manager, setManager] = useState('');
-  const [activeTab, setActiveTab] = useState('brokerbot');
+  const [name, setName] = useState('');
+  const [symbol, setSymbol] = useState('');
+  const [terms, setTerms] = useState('');
+  const [allowlist, setAllowlist] = useState('');
+  const [draggable, setDraggable] = useState('');
+  const [numberOfShares, setNumberOfShares] = useState('');
+  const [quorumDrag, setQuorumDrag] = useState('7500');
+  const [quorumMigration, setQuorumMigration] = useState('7500');
+  const [votePeriod, setVotePeriod] = useState('5184000');
+
 
   useEffect(() => {
     console.log(writeContractError?.message)
@@ -73,40 +78,80 @@ export function Brokerbot() {
   // tab content
   const renderTabContent = () => {
     switch (activeTab) {
-      case 'brokerbot':
+      case 'token':
         return (
-          <div className="brokerbot-container">
-          <h2>Deploy Brokerbot</h2>
+          <div className="token-container">
+            <h2>Deploy Token</h2>
             <div className="form-group">
-              <label>Price:</label>
+              <label>Draggble needed:</label>
               <input
-                type="number"
-                value={price}
-                onChange={(e) => setPrice(e.target.value)}
+                type="checkbox"
+                value={draggable}
+                onChange={(e) => setDraggable(e.target.value)}
               />
             </div>
             <div className="form-group">
-              <label>Increment:</label>
+              <label>Allowlist needed:</label>
               <input
-                type="number"
-                value={increment}
-                onChange={(e) => setIncrement(e.target.value)}
+                type="checkbox"
+                value={allowlist}
+                onChange={(e) => setAllowlist(e.target.value)}
               />
             </div>
             <div className="form-group">
-              <label>Base Currency:</label>
+              <label>Share Name:</label>
               <input
                 type="text"
-                value={baseCurrency}
-                onChange={(e) => setBaseCurrency(e.target.value)}
+                value={name}
+                onChange={(e) => setName(e.target.value)}
               />
             </div>
             <div className="form-group">
-              <label>Token:</label>
+              <label>Symbol:</label>
               <input
                 type="text"
-                value={token}
-                onChange={(e) => setToken(e.target.value)}
+                value={symbol}
+                onChange={(e) => setSymbol(e.target.value)}
+              />
+            </div>
+            <div className="form-group">
+              <label>Terms:</label>
+              <input
+                type="text"
+                value={terms}
+                onChange={(e) => setTerms(e.target.value)}
+              />
+            </div>
+            <div className="form-group">
+              <label>Number of Shares:</label>
+              <input
+                type="number"
+                value={numberOfShares}
+                onChange={(e) => setNumberOfShares(e.target.value)}
+              />
+            </div>
+            <div className="form-group">
+              <label>Quorum Drag:</label>
+              <input
+                type="number"
+                value={quorumDrag}
+                onChange={(e) => setQuorumDrag(e.target.value)}
+              />
+            </div>
+            <div className="form-group">
+              <label>Quorum Migration:</label>
+              <input
+                type="number"
+                value={quorumMigration}
+                onChange={(e) => setQuorumMigration(e.target.value)}
+              />
+            </div>
+            <div className="form-group">
+              <label>Vote Period:</label>
+              <input
+                type="number"
+                value={votePeriod}
+                onChange={(e) => setVotePeriod(e.target.value)}
               />
             </div>
             <div className="form-group">
@@ -125,7 +170,7 @@ export function Brokerbot() {
                 onChange={(e) => setSalt(e.target.value)}
               />
             </div>
-            <button onClick={handleCreateBrokerbot}>Deploy Brokerbot</button>
+            <button onClick={handleCreateToken}>Deploy Token</button>
         </div>
         );
       case 'settings':
@@ -165,21 +210,26 @@ export function Brokerbot() {
 
 
   // handale button clicks
-  const handleCreateBrokerbot = () => {
-    console.log('handleSubmit function called');
-    const brokerbotConfig = {
-      price: parseUnits(price, 18),
-      increment: parseUnits(increment, 18),
-      baseCurrency: baseCurrency as Address
-    }
+  const handleCreateToken = () => {
+    console.log('handleCreateToken function called');
+    const tokenConfig = {
+      name: name,
+      symbol: symbol,
+      terms: terms,
+      allowlist: false,
+      draggable: false,
+      numberOfShares: BigInt(numberOfShares),
+      quorumDrag: BigInt(quorumDrag),
+      quorumMigration: BigInt(quorumMigration),
+      votePeriod: BigInt(votePeriod),
+    };
 
     try {
       writeContract({
         ...wagmiContractConfig,
-        functionName: 'createBrokerbot',
+        functionName: 'createToken',
         args: [
-          brokerbotConfig,
-          token as Address,
+          tokenConfig,
           multisig as Address,
           salt,
         ]
@@ -237,8 +287,8 @@ export function Brokerbot() {
     <div>
       <div>
       <div className="tabs">
-        <button onClick={() => setActiveTab('brokerbot')} className={activeTab === 'brokerbot' ? 'active' : ''}>
-          Deploy Brokerbot
+        <button onClick={() => setActiveTab('token')} className={activeTab === 'token' ? 'active' : ''}>
+          Deploy Token
         </button>
         <button onClick={() => setActiveTab('settings')} className={activeTab === 'settings' ? 'active' : ''}>
           Settings

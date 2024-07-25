@@ -27,6 +27,22 @@ export default defineConfig({
             [sepolia.id]: '0xfAe70dEBb64a7176aaA41D1d7fEAfc4CCA4a5107',
             [polygon.id]: '0xfAe70dEBb64a7176aaA41D1d7fEAfc4CCA4a5107',
           },
+        },
+        {
+          name: 'TokenFactory',
+          address: {
+            [mainnet.id]: '0x331e15Ea9304c2B2A1A8f9f3d56047a8895DeCb0',
+            [sepolia.id]: '0x331e15Ea9304c2B2A1A8f9f3d56047a8895DeCb0',
+            [polygon.id]: '0x331e15Ea9304c2B2A1A8f9f3d56047a8895DeCb0',
+          },
+        },
+        {
+          name: 'AktionriasFactory',
+          address: {
+            [mainnet.id]: '0x5D07D23567DD022FA7105BEE9D1d1352c0CA82B3',
+            [sepolia.id]: '0x5D07D23567DD022FA7105BEE9D1d1352c0CA82B3',
+            [polygon.id]: '0x5D07D23567DD022FA7105BEE9D1d1352c0CA82B3',
+          },
         }
       ],
     }),
