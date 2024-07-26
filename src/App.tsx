@@ -46,8 +46,10 @@ function App() {
           <button onClick={() => setActiveTab('manager')}>Factory Manager</button>
           <button onClick={() => setActiveTab('account')}>Account</button>
         </div>
-      <div style={{ padding: 12 }}>
-        {renderTabContent()}
+      <div className='tab-content'>
+        <div className='data-container'>
+          {renderTabContent()}
+        </div>
       </div>
     </div>
   );

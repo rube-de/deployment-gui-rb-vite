@@ -125,7 +125,7 @@ export function Brokerbot() {
                 onChange={(e) => setSalt(e.target.value)}
               />
             </div>
-            <button onClick={handleCreateBrokerbot}>Deploy Brokerbot</button>
+            <button className="deploy-button" onClick={handleCreateBrokerbot}>Deploy Brokerbot</button>
         </div>
         );
       case 'settings':
@@ -139,7 +139,7 @@ export function Brokerbot() {
               value={owner}
               onChange={(e) => setOwner(e.target.value)}
               style={{  marginRight: '10px' }}
-            />
+            />C
             {address === ownerData?.result! && (
               <button onClick={handleUpdateOwner}>Update</button>
             )}

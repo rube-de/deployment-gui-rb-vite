@@ -32,8 +32,8 @@ export function Token() {
   const [name, setName] = useState('');
   const [symbol, setSymbol] = useState('');
   const [terms, setTerms] = useState('');
-  const [allowlist, setAllowlist] = useState('');
-  const [draggable, setDraggable] = useState('');
+  const [allowlist, setAllowlist] = useState(false);
+  const [draggable, setDraggable] = useState(false);
   const [numberOfShares, setNumberOfShares] = useState('');
   const [quorumDrag, setQuorumDrag] = useState('7500');
   const [quorumMigration, setQuorumMigration] = useState('7500');
@@ -83,19 +83,19 @@ export function Token() {
           <div className="token-container">
             <h2>Deploy Token</h2>
             <div className="form-group">
-              <label>Draggble needed:</label>
+              <label className="checkbox">Draggble needed:</label>
               <input
                 type="checkbox"
-                value={draggable}
-                onChange={(e) => setDraggable(e.target.value)}
+                checked={draggable}
+                onChange={(e) => setDraggable(e.target.checked)}
               />
             </div>
             <div className="form-group">
-              <label>Allowlist needed:</label>
+              <label className="checkbox">Allowlist needed:</label>
               <input
                 type="checkbox"
-                value={allowlist}
-                onChange={(e) => setAllowlist(e.target.value)}
+                checked={allowlist}
+                onChange={(e) => setAllowlist(e.target.checked)}
               />
             </div>
             <div className="form-group">
@@ -130,30 +130,35 @@ export function Token() {
                 onChange={(e) => setNumberOfShares(e.target.value)}
               />
             </div>
-            <div className="form-group">
-              <label>Quorum Drag:</label>
-              <input
-                type="number"
-                value={quorumDrag}
-                onChange={(e) => setQuorumDrag(e.target.value)}
-              />
-            </div>
-            <div className="form-group">
-              <label>Quorum Migration:</label>
-              <input
-                type="number"
-                value={quorumMigration}
-                onChange={(e) => setQuorumMigration(e.target.value)}
-              />
-            </div>
-            <div className="form-group">
-              <label>Vote Period:</label>
-              <input
-                type="number"
-                value={votePeriod}
-                onChange={(e) => setVotePeriod(e.target.value)}
-              />
-            </div>
+            {draggable && (
+              <div>
+                <h3>Draggable</h3>
+                <div className="form-group">
+                  <label>Quorum Drag:</label>
+                  <input
+                    type="number"
+                    value={quorumDrag}
+                    onChange={(e) => setQuorumDrag(e.target.value)}
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Quorum Migration:</label>
+                  <input
+                    type="number"
+                    value={quorumMigration}
+                    onChange={(e) => setQuorumMigration(e.target.value)}
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Vote Period:</label>
+                  <input
+                    type="number"
+                    value={votePeriod}
+                    onChange={(e) => setVotePeriod(e.target.value)}
+                  />
+                </div>
+              </div>
+            )}
             <div className="form-group">
               <label>Multisig:</label>
               <input
@@ -170,7 +175,7 @@ export function Token() {
                 onChange={(e) => setSalt(e.target.value)}
               />
             </div>
-            <button onClick={handleCreateToken}>Deploy Token</button>
+            <button className="deploy-button" onClick={handleCreateToken}>Deploy Token</button>
         </div>
         );
       case 'settings':

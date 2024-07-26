@@ -43,6 +43,7 @@ export function Company() {
   const [price, setPrice] = useState('0');
   const [increment, setIncrement] = useState('0');
   const [baseCurrency, setBaseCurrency] = useState(getZCHFAddress(chainId));
+  const [isBrokerbot, setIsBrokerbot] = useState(false);
 
 
   useEffect(() => {
@@ -99,22 +100,22 @@ export function Company() {
     switch (activeTab) {
       case 'company':
         return (
-          <div className="token-container">
+          <div className="company-container">
             <h2>Token</h2>
             <div className="form-group">
-              <label>Draggble needed:</label>
+              <label className="checkbox">Draggble needed:</label>
               <input
                 type="checkbox"
-                value={draggable}
-                onChange={(e) => setDraggable(e.target.value)}
+                checked={draggable}
+                onChange={(e) => setDraggable(e.target.checked)}
               />
             </div>
             <div className="form-group">
-              <label>Allowlist needed:</label>
+              <label className="checkbox">Allowlist needed:</label>
               <input
                 type="checkbox"
-                value={allowlist}
-                onChange={(e) => setAllowlist(e.target.value)}
+                checked={allowlist}
+                onChange={(e) => setAllowlist(e.target.checked)}
               />
             </div>
             <div className="form-group">
@@ -149,54 +150,73 @@ export function Company() {
                 onChange={(e) => setNumberOfShares(e.target.value)}
               />
             </div>
-            <div className="form-group">
-              <label>Quorum Drag:</label>
-              <input
-                type="number"
-                value={quorumDrag}
-                onChange={(e) => setQuorumDrag(e.target.value)}
-              />
-            </div>
-            <div className="form-group">
-              <label>Quorum Migration:</label>
-              <input
-                type="number"
-                value={quorumMigration}
-                onChange={(e) => setQuorumMigration(e.target.value)}
-              />
-            </div>
-            <div className="form-group">
-              <label>Vote Period:</label>
-              <input
-                type="number"
-                value={votePeriod}
-                onChange={(e) => setVotePeriod(e.target.value)}
-              />
-            </div>
-            <h2>Brokerbot</h2>
-            <div className="form-group">
-              <label>Price:</label>
-              <input
-                type="number"
-                value={price}
-                onChange={(e) => setPrice(e.target.value)}
-              />
-            </div>
-            <div className="form-group">
-              <label>Increment:</label>
-              <input
-                type="number"
-                value={increment}
-                onChange={(e) => setIncrement(e.target.value)}
-              />
-            </div>
-            <div className="form-group">
-              <label>Base Currency:</label>
-              <input
-                type="text"
-                value={baseCurrency}
-                onChange={(e) => setBaseCurrency(e.target.value)}
-              />
+            {draggable && (
+              <div>
+                <h3>Draggable</h3>
+                <div className="form-group">
+                  <label>Quorum Drag:</label>
+                  <input
+                    type="number"
+                    value={quorumDrag}
+                    onChange={(e) => setQuorumDrag(e.target.value)}
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Quorum Migration:</label>
+                  <input
+                    type="number"
+                    value={quorumMigration}
+                    onChange={(e) => setQuorumMigration(e.target.value)}
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Vote Period:</label>
+                  <input
+                    type="number"
+                    value={votePeriod}
+                    onChange={(e) => setVotePeriod(e.target.value)}
+                  />
+                </div>
+              </div>
+            )}
+            <div>
+              <h2>Brokerbot</h2>
+              <div className="form-group">
+                <label className="checkbox">Brokerbot needed:</label>
+                <input
+                  type="checkbox"
+                  checked={isBrokerbot}
+                  onChange={(e) => setIsBrokerbot(e.target.checked)}
+                />
+              </div>
+              {isBrokerbot && (
+                <div>
+                  <div className="form-group">
+                    <label>Price:</label>
+                    <input
+                      type="number"
+                      value={price}
+                      onChange={(e) => setPrice(e.target.value)}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label>Increment:</label>
+                    <input
+                      type="number"
+                      value={increment}
+                      onChange={(e) => setIncrement(e.target.value)}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label>Base Currency:</label>
+                    <input
+                      type="text"
+                      value={baseCurrency}
+                      onChange={(e) => setBaseCurrency(e.target.value)}
+                    />
+                  </div>
+                </div>
+              )}
             </div>
             <h2>Multisig</h2>
             <div className="form-group">
@@ -215,8 +235,14 @@ export function Company() {
                 onChange={(e) => setSalt(e.target.value)}
               />
             </div>
-            <button onClick={handleCreateCompany}>Deploy Copmany</button>
-        </div>
+            {isBrokerbot ? (
+              <button className="deploy-button" onClick={handleCreateCompany}>Deploy Company</button>
+            ) : (
+              <button className="deploy-button" onClick={handleCreateCompanyWithoutBrokerbot}>
+                Deploy Company Without Brokerbot
+              </button>
+            )}
+          </div>
         );
       case 'settings':
         return (
@@ -305,6 +331,35 @@ export function Company() {
         args: [
           tokenConfig,
           brokerbotConfig,
+          signer as Address,
+          salt,
+        ]
+      });
+    } catch (error) {
+      console.error('Error in writeContract:', error);
+    }
+  };
+
+  const handleCreateCompanyWithoutBrokerbot = () => {
+    console.log('handleCreateCompanyWithoutBrokerbot function called');
+    const tokenConfig = {
+      name: name,
+      symbol: symbol,
+      terms: terms,
+      allowlist: allowlist,
+      draggable: draggable,
+      numberOfShares: BigInt(numberOfShares),
+      quorumDrag: BigInt(quorumDrag),
+      quorumMigration: BigInt(quorumMigration),
+      votePeriod: BigInt(votePeriod),
+    };
+
+    try {
+      writeContract({
+        ...wagmiContractConfig,
+        functionName: 'createCompanyWithoutBrokerbot',
+        args: [
+          tokenConfig,
           signer as Address,
           salt,
         ]
