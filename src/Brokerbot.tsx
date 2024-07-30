@@ -2,7 +2,8 @@ import {
   useReadContracts,
   useWriteContract,
   useWaitForTransactionReceipt,
-  useAccount
+  useAccount,
+  useWatchContractEvent
  } from 'wagmi';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import React, { useState, useEffect } from 'react';
@@ -34,6 +35,7 @@ export function Brokerbot() {
   const [salt, setSalt] = useState('');
   const [manager, setManager] = useState('');
   const [activeTab, setActiveTab] = useState('brokerbot');
+  const [brokerbotAddress, setBrokerbotAddress] = useState('');
 
   useEffect(() => {
     console.log(writeContractError?.message)
@@ -70,7 +72,24 @@ export function Brokerbot() {
     }
   }, [error, isPending, ownerData, managerData]);
 
+  // **********************
+  // Event
+  // **********************
+  useWatchContractEvent({
+    ...wagmiContractConfig,
+    eventName: 'BrokerbotCreated',
+    onLogs: (logs) => {
+      const brokerbot = logs[0].args.brokerbot;
+      if (brokerbot !== undefined) {
+        console.log('BrokerbotCreated', brokerbot);
+        setBrokerbotAddress(brokerbot.toString());
+      }
+    },
+  });
+
+  // **********************
   // tab content
+  // **********************
   const renderTabContent = () => {
     switch (activeTab) {
       case 'brokerbot':
@@ -167,6 +186,7 @@ export function Brokerbot() {
   // handale button clicks
   const handleCreateBrokerbot = () => {
     console.log('handleSubmit function called');
+    setBrokerbotAddress('');
     const brokerbotConfig = {
       price: parseUnits(price, 18),
       increment: parseUnits(increment, 18),
@@ -184,6 +204,7 @@ export function Brokerbot() {
           salt,
         ]
       });
+
     } catch (error) {
       console.error('Error in writeContract:', error);
     }
@@ -245,14 +266,30 @@ export function Brokerbot() {
         </button>
       </div>
       {renderTabContent()}
-    </div>
-      {hash && (
+      </div>
+      {hash && !brokerbotAddress && (
         <div style={{ marginTop: '10px' }}>
           <div>
-            <h2 style={{ marginTop: 24, marginBottom: 6 }}>Transaction sent</h2>
+            <h2 style={{ marginTop: 24, marginBottom: 6 }}>Transaction sent...waiting for deployment</h2>
             <p style={{ marginBottom: 6 }}>
               View on{' '}
-              <a href={blockExplorerLink(chainId, hash)} target="_blank">
+              <a href={blockExplorerLink(chainId) + "tx/" + hash} target="_blank">
+                Etherscan
+              </a>
+            </p>
+          </div>
+        </div>
+      )}
+      {brokerbotAddress && (
+        <div>
+          <div>
+            <h2 style={{ marginTop: 24, marginBottom: 6 }}>Brokerbot deployed at {brokerbotAddress}</h2>
+            <p style={{ marginBottom: 6 }}>
+              View on{' '}
+              <a
+                href={blockExplorerLink(chainId) + "address/" + brokerbotAddress}
+                target="_blank"
+              >
                 Etherscan
               </a>
             </p>

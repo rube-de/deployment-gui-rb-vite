@@ -1,15 +1,15 @@
 
 
-export function blockExplorerLink(chainId: number | undefined, hash: string) {
+export function blockExplorerLink(chainId: number | undefined) {
   switch (chainId) {
     case 1:
-      return `https://etherscan.io/tx/${hash}`;
+      return `https://etherscan.io/`;
     case 137:
-      return `https://polygonscan.com/tx/${hash}`;
+      return `https://polygonscan.com/`;
     case 11155111:
-      return `https://sepolia.etherscan.io/tx/${hash}`;
+      return `https://sepolia.etherscan.io/`;
     default:
-      return `https://etherscan.io/tx/${hash}`;
+      return `https://etherscan.io/`;
   }
 }
 

@@ -1,8 +1,9 @@
 import { 
   useReadContracts,
   useWriteContract,
-  useWaitForTransactionReceipt,
-  useAccount
+  // useWaitForTransactionReceipt,
+  useAccount,
+  useWatchContractEvent
  } from 'wagmi';
 import React, { useState, useEffect } from 'react';
 import { 
@@ -38,6 +39,8 @@ export function Token() {
   const [quorumDrag, setQuorumDrag] = useState('7500');
   const [quorumMigration, setQuorumMigration] = useState('7500');
   const [votePeriod, setVotePeriod] = useState('5184000');
+  const [baseTokenAddress, setBaseTokenAddress] = useState('');
+  const [draggableAddress, setDraggableAddress] = useState('');
 
 
   useEffect(() => {
@@ -74,6 +77,33 @@ export function Token() {
       }
     }
   }, [error, isPending, ownerData, managerData]);
+
+  // **********************
+  // Event
+  // **********************
+  useWatchContractEvent({
+    ...wagmiContractConfig,
+    eventName: 'BaseTokenCreated',
+    onLogs: (logs) => {
+      const token = logs[0].args.token;
+      if (token !== undefined) {
+        console.log('BaseTokenCreated', token);
+        setBaseTokenAddress(token.toString());
+      }
+    },
+  });
+
+  useWatchContractEvent({
+    ...wagmiContractConfig,
+    eventName: 'DraggableTokenCreated',
+    onLogs: (logs) => {
+      const draggable = logs[0].args.draggable;
+      if (draggable !== undefined) {
+        console.log('BrokerbotCreated', draggable);
+        setDraggableAddress(draggable.toString());
+      }
+    },
+  });
 
   // tab content
   const renderTabContent = () => {
@@ -217,6 +247,8 @@ export function Token() {
   // handale button clicks
   const handleCreateToken = () => {
     console.log('handleCreateToken function called');
+    setBaseTokenAddress('');
+    setDraggableAddress('');
     const tokenConfig = {
       name: name,
       symbol: symbol,
@@ -301,19 +333,52 @@ export function Token() {
       </div>
       {renderTabContent()}
     </div>
-      {hash && (
+      {hash && !baseTokenAddress && (
         <div style={{ marginTop: '10px' }}>
           <div>
             <h2 style={{ marginTop: 24, marginBottom: 6 }}>Transaction sent</h2>
             <p style={{ marginBottom: 6 }}>
               View on{' '}
-              <a href={blockExplorerLink(chainId, hash)} target="_blank">
+              <a href={blockExplorerLink(chainId) + "tx/" + hash} target="_blank">
                 Etherscan
               </a>
             </p>
           </div>
         </div>
       )}
+      {baseTokenAddress && (
+        <div>
+          <div>
+            <h2 style={{ marginTop: 24, marginBottom: 6 }}>Base Token deployed at {baseTokenAddress}</h2>
+            <p style={{ marginBottom: 6 }}>
+              View on{' '}
+              <a
+                href={blockExplorerLink(chainId) + "address/" + baseTokenAddress}
+                target="_blank"
+              >
+                Etherscan
+              </a>
+            </p>
+          </div>
+        </div>
+      )}
+      {draggableAddress && (
+        <div>
+          <div>
+            <h2 style={{ marginTop: 24, marginBottom: 6 }}>Draggable Token deployed at {draggableAddress}</h2>
+            <p style={{ marginBottom: 6 }}>
+              View on{' '}
+              <a
+                href={blockExplorerLink(chainId) + "address/" + draggableAddress}
+                target="_blank"
+              >
+                Etherscan
+              </a>
+            </p>
+          </div>
+        </div>
+      )}
+      
     </div>
   );
 }

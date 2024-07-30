@@ -1,8 +1,9 @@
 import { 
   useReadContracts,
   useWriteContract,
-  useWaitForTransactionReceipt,
-  useAccount
+  // useWaitForTransactionReceipt,
+  useAccount,
+  useWatchContractEvent
  } from 'wagmi';
 import React, { useState, useEffect } from 'react';
 import { 
@@ -44,6 +45,9 @@ export function Company() {
   const [increment, setIncrement] = useState('0');
   const [baseCurrency, setBaseCurrency] = useState(getZCHFAddress(chainId));
   const [isBrokerbot, setIsBrokerbot] = useState(false);
+  const [brokerbotAddress, setBrokerbotAddress] = useState('');
+  const [tokenAddress, setTokenAddress] = useState('');
+  const [multisigAddress, setMultisigAddress] = useState('');
 
 
   useEffect(() => {
@@ -94,6 +98,27 @@ export function Company() {
       }
     }
   }, [error, isPending, ownerData, managerData, tokenFactoryData, brokerbotFactoryData]);
+
+
+  // **********************
+  // Event
+  // **********************
+  useWatchContractEvent({
+    ...wagmiContractConfig,
+    eventName: 'CompanyCreated',
+    onLogs: (logs) => {
+      const token = logs[0].args.token;
+      const brokerbot = logs[0].args.brokerbot;
+      const multisig = logs[0].args.multisig;
+      if (token !== undefined && brokerbot !== undefined && multisig !== undefined) {
+        console.log('Company created', brokerbot.toString(), token.toString(), multisig.toString());
+        setTokenAddress(token.toString());
+        setBrokerbotAddress(brokerbot.toString());
+        setMultisigAddress(multisig.toString());
+      }
+    },
+  });
+
 
   // tab content
   const renderTabContent = () => {
@@ -468,13 +493,53 @@ export function Company() {
       </div>
       {renderTabContent()}
     </div>
-      {hash && (
+      {hash && !brokerbotAddress && (
         <div style={{ marginTop: '10px' }}>
           <div>
-            <h2 style={{ marginTop: 24, marginBottom: 6 }}>Transaction sent</h2>
+            <h2 style={{ marginTop: 24, marginBottom: 6 }}>Transaction sent ... waiting for deployment</h2>
             <p style={{ marginBottom: 6 }}>
               View on{' '}
-              <a href={blockExplorerLink(chainId, hash)} target="_blank">
+              <a href={blockExplorerLink(chainId) + "tx/" + hash} target="_blank">
+                Etherscan
+              </a>
+            </p>
+          </div>
+        </div>
+      )}
+      {tokenAddress && brokerbotAddress && multisigAddress && (
+        <div>
+          <div>
+            <h2 style={{ marginTop: 24, marginBottom: 6 }}>Multisig deployed at {multisigAddress}</h2>
+            <p style={{ marginBottom: 6 }}>
+              View on{' '}
+              <a
+                href={blockExplorerLink(chainId) + "address/" + multisigAddress}
+                target="_blank"
+              >
+                Etherscan
+              </a>
+            </p>
+          </div>
+          <div>
+            <h2 style={{ marginTop: 24, marginBottom: 6 }}>Share Token deployed at {tokenAddress}</h2>
+            <p style={{ marginBottom: 6 }}>
+              View on{' '}
+              <a
+                href={blockExplorerLink(chainId) + "address/" + tokenAddress}
+                target="_blank"
+              >
+                Etherscan
+              </a>
+            </p>
+          </div>
+          <div>
+            <h2 style={{ marginTop: 24, marginBottom: 6 }}>Brokerbot deployed at {brokerbotAddress}</h2>
+            <p style={{ marginBottom: 6 }}>
+              View on{' '}
+              <a
+                href={blockExplorerLink(chainId) + "address/" + brokerbotAddress}
+                target="_blank"
+              >
                 Etherscan
               </a>
             </p>
