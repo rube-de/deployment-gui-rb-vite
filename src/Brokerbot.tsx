@@ -158,7 +158,7 @@ export function Brokerbot() {
               value={owner}
               onChange={(e) => setOwner(e.target.value)}
               style={{  marginRight: '10px' }}
-            />C
+            />
             {address === ownerData?.result! && (
               <button onClick={handleUpdateOwner}>Update</button>
             )}
