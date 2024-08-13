@@ -1,5 +1,5 @@
 import { http, createConfig } from 'wagmi'
-import { mainnet, polygon, sepolia } from 'wagmi/chains'
+import { mainnet, optimism, polygon, sepolia } from 'wagmi/chains'
 import { coinbaseWallet, injected, walletConnect } from 'wagmi/connectors'
 
 export const config = createConfig({
@@ -12,6 +12,7 @@ export const config = createConfig({
   transports: {
     [mainnet.id]: http(),
     [polygon.id]: http(),
+    [optimism.id]: http(),
     [sepolia.id]: http(),
   },
 })
