@@ -3,7 +3,7 @@ import { mainnet, optimism, polygon, sepolia } from 'wagmi/chains'
 import { coinbaseWallet, injected, walletConnect } from 'wagmi/connectors'
 
 export const config = createConfig({
-  chains: [mainnet, polygon, sepolia],
+  chains: [mainnet, polygon, optimism, sepolia],
   connectors: [
     injected(),
     // coinbaseWallet(),

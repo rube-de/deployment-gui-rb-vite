@@ -5,7 +5,7 @@ export function blockExplorerLink(chainId: number | undefined) {
     case 1:
       return `https://etherscan.io/`;
     case 10:
-      return `https://optimistic.etherscan.com/`;
+      return `https://optimistic.etherscan.io/`;
     case 137:
       return `https://polygonscan.com/`;
     case 11155111:
